@@ -46,7 +46,7 @@ products.forEach((product)=>{
                     Added
                 </div>
 
-                <button class="add-to-cart-button button-primary">
+                <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
                     Add to Cart
                 </button>
                 </div>`;
@@ -55,4 +55,25 @@ products.forEach((product)=>{
 });
 //implement the dta structure in the <div> in the amazon.html
 document.querySelector('.js-product-grid').innerHTML = productHTML;
-
+// using if statement making the quantity increassing
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+    button.addEventListener('click',()=> {
+       const productId=button.dataset.productId;
+        let matching;
+       cart.forEach((item)=>{
+        if(productId===item.productId){
+            matching=item;
+        }
+          });
+        if(matching){
+            matching.quantity+=1;
+        }
+        else{
+            cart.push({productId: productId,
+        quantity:1});
+    }
+       
+    
+    console.log(cart);
+    });
+});
